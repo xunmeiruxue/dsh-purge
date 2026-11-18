@@ -9239,6 +9239,15 @@ var zh = {
   "sw.context": "\u4E0A\u4E0B\u6587\u7BA1\u7406",
   "sw.context.desc": "\u5173\u6389\u91CD\u590D\u8C03\u7528\u63D0\u9192\u4E0E\u5DE5\u5177\u7ED3\u679C\u4FEE\u526A\u3002\u9ED8\u8BA4\u5173\uFF0C\u5F00\u4E86 token \u4F1A\u6DA8\u3002",
   "sw.context.hint": "\u5BF9\u5E94 #18 \u91CD\u590D\u8C03\u7528\u63D0\u9192\u3001#19 \u5DE5\u5177\u7ED3\u679C\u4FEE\u526A\u3002\u5173\u6389\u540E\u6A21\u578B\u4E0D\u518D\u6536\u5230\u91CD\u590D\u8C03\u7528\u63D0\u9192\uFF0C\u957F\u5DE5\u5177\u8F93\u51FA\u4E5F\u4E0D\u518D\u88AB\u88C1\u526A\u2014\u2014\u4EE3\u4EF7\u662F token \u6301\u7EED\u589E\u957F\uFF0C\u91CD\u5EA6\u4F1A\u8BDD\u66F4\u5BB9\u6613\u649E\u4E0A\u9650\u3002\u9ED8\u8BA4\u5173\u3002",
+  "master.label": "\u7834\u7532\u603B\u5F00\u5173",
+  "master.desc": "\u5173\u6389\u5C31\u662F\u771F\u8FD8\u539F\uFF1A\u5BBF\u4E3B\u8865\u4E01\u5168\u90E8\u56DE\u9000\uFF0C\u6CE8\u5165\u6B63\u6587\u4E0E\u7834\u7532\u5F3A\u5316\u6BB5\u4E00\u8D77\u505C\u7528\u3002\u6253\u5F00\u4F1A\u6062\u590D\u6CE8\u5165\uFF0C\u5E76\u628A\u8865\u4E01\u5199\u56DE\u5BBF\u4E3B\u3002",
+  "master.hint": "\u5173\u6389\u540E\uFF1A\u5168\u90E8\u5BBF\u4E3B\u8865\u4E01\u56DE\u9000\u6210\u5B98\u65B9\u539F\u4EF6\u3001prompt-inject.md \u4E0D\u518D\u8FDB\u5165\u4EFB\u4F55\u8BF7\u6C42\u3001\u7834\u7532\u5F3A\u5316\u6BB5\u540C\u65F6\u5173\u95ED\u2014\u2014\u8BF7\u6C42\u91CC\u4E0D\u518D\u6709\u7834\u7532\u5185\u5BB9\uFF0C\u957F\u63D0\u793A\u8BCD\u4E0D\u518D\u7A00\u91CA\u6A21\u578B\uFF0C\u6309\u5B98\u65B9\u63D0\u793A\u8BCD\u5224\u5B9A\u7684\u516C\u76CA\u7AD9\u4E5F\u4E0D\u4F1A\u649E\u4E0A\u7834\u7532\u3002\u6253\u5F00\u540E\uFF1A\u6062\u590D\u6CE8\u5165\u5E76\u8C03\u7528\u4E00\u6B21\u300C\u5E94\u7528\u300D\u628A\u8865\u4E01\u5199\u56DE\u5BBF\u4E3B\u3002prompt-inject.md\u3001\u5907\u4EFD\u3001\u9762\u677F\u5168\u90E8\u4FDD\u7559\uFF0C\u968F\u65F6\u53EF\u4EE5\u518D\u5F00\u3002\u4E24\u79CD\u72B6\u6001\u90FD\u8981\u5B8C\u5168\u9000\u51FA\u5E76\u91CD\u5F00 DSH \u624D\u751F\u6548\u3002",
+  "master.chip.on": "\u7834\u7532\u5DF2\u5F00",
+  "master.chip.off": "\u5DF2\u8FD8\u539F\u4E3A\u539F\u7248",
+  "master.off.note": "\u5DF2\u56DE\u9000 {reverted} \u4E2A\u5BBF\u4E3B\u6587\u4EF6\uFF0C\u6CE8\u5165\u4E0E\u5F3A\u5316\u6BB5\u5DF2\u505C\u7528\u3002\u5B8C\u5168\u9000\u51FA\u5E76\u91CD\u5F00 DSH \u540E\u4E3A\u539F\u7248\u3002",
+  "master.on.note": "\u5DF2\u6062\u590D\u6CE8\u5165\u5E76\u5199\u56DE {applied} \u4E2A\u8865\u4E01\u3002\u5B8C\u5168\u9000\u51FA\u5E76\u91CD\u5F00 DSH \u540E\u751F\u6548\u3002",
+  "master.applyFailed": "\u5F00\u5173\u5DF2\u6253\u5F00\uFF0C\u4F46\u8865\u4E01\u6CA1\u5199\u56DE\u5BBF\u4E3B\uFF1B\u8BF7\u5728\u4E0B\u9762\u70B9\u300C\u5E94\u7528\u300D\u91CD\u8BD5\u3002",
+  "master.fail": "\u5207\u6362\u5931\u8D25\uFF1A{error}",
   "sw.chip.pending": "{n} \u6761 \xB7 \u5F85\u5199\u5165",
   "sw.chip.on": "{n} \u6761 \xB7 \u5DF2\u5199\u5165 {written} \xB7 \u5F85\u5199 {pending}",
   "detail.title": "\u8865\u4E01\u660E\u7EC6",
@@ -9687,6 +9696,15 @@ var en = {
   "sw.context": "Context management",
   "sw.context.desc": "Turn off the repeat-call reminder and tool-result pruning. Off by default; tokens grow when on.",
   "sw.context.hint": "#18 repeat-tool reminder and #19 tool-result pruner. With them off the model no longer gets repeat-call reminders and long tool output is kept in full; the cost is steady token growth. Off by default.",
+  "master.label": "Master switch",
+  "master.desc": "Off is a true restore: every host patch is rolled back and both the injected prompt and the boost block stop being sent. On restores injection and writes the patches back to the host.",
+  "master.hint": "Off: all host patches return to the official bytes, prompt-inject.md never reaches a request, and the boost block is off \u2014 so the request carries a stock prompt and the long jailbreak text stops diluting the model. On: injection resumes and Apply writes the patches back. prompt-inject.md, backups and the panel are kept, so you can turn it on again at any time. Either way you must fully quit and reopen DSH.",
+  "master.chip.on": "Purge on",
+  "master.chip.off": "Restored to stock",
+  "master.off.note": "Reverted {reverted} host files; injection and the boost block are off. Fully quit and reopen DSH for the stock prompt.",
+  "master.on.note": "Injection restored and {applied} patches written back. Fully quit and reopen DSH to load them.",
+  "master.applyFailed": "Switch is on but the patches were not written; press Apply below to retry.",
+  "master.fail": "Switch failed: {error}",
   "sw.chip.pending": "{n} patches \xB7 to write",
   "sw.chip.on": "{n} patches \xB7 {written} written \xB7 {pending} to write",
   "detail.title": "Patch detail",
@@ -10596,6 +10614,75 @@ function PatchGroupSwitches({ state, onSaved }) {
       note.text
     ) : null,
     h("p", { className: "dshpp-sw-hint" }, t("sw.applyHint"))
+  );
+}
+function MasterSwitch({ state, onSaved }) {
+  const t = useT();
+  const off = !!(state && state.master_off === true);
+  const [busy, setBusy] = useState(false);
+  const [note, setNote] = useState(null);
+  const toggle = () => {
+    if (busy) return;
+    const next = !off;
+    setBusy(true);
+    setNote(null);
+    apiJson("/dsh-purge/master", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ off: next })
+    }).then(async (d) => {
+      if (!d || !d.ok) throw new Error(d && d.error || "switch failed");
+      if (next) {
+        setNote({
+          kind: "ok",
+          text: t("master.off.note", { reverted: d.reverted ?? 0 })
+        });
+      } else {
+        const a = await apiJson("/dsh-purge/apply", {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({})
+        });
+        if (!a || a.ok === false)
+          throw new Error(a && a.error || t("master.applyFailed"));
+        setNote({
+          kind: "ok",
+          text: t("master.on.note", { applied: a.applied ?? 0 })
+        });
+      }
+      if (typeof onSaved === "function") onSaved();
+    }).catch(
+      (e) => setNote({
+        kind: "error",
+        text: t("master.fail", { error: String(e && e.message || e) })
+      })
+    ).then(() => setBusy(false));
+  };
+  return h(
+    "div",
+    null,
+    h(
+      "div",
+      { className: "dshpp-switches" },
+      h(Switch, {
+        on: !off,
+        busy,
+        label: t("master.label"),
+        desc: t("master.desc"),
+        hintTitle: t("master.label"),
+        hint: t("master.hint"),
+        chip: off ? t("master.chip.off") : t("master.chip.on"),
+        onToggle: toggle
+      })
+    ),
+    note ? h(
+      "p",
+      {
+        className: "dshpp-sw-note" + (note.kind === "error" ? " is-bad" : ""),
+        role: "status"
+      },
+      note.text
+    ) : null
   );
 }
 var FILTERS = ["all", "pending", "off", "na"];
@@ -11973,6 +12060,7 @@ function PurgifySection({ page = "status", onStatus } = {}) {
         sealedReady ? "\u5BBF\u4E3B\u8FD8\u6CA1\u89E3\u5F00\uFF1A\u70B9\u300C\u5E94\u7528\u300D" : t("metric.unlocated")
       ) : null,
       noticeNode(notice),
+      h(MasterSwitch, { state: s, onSaved: loadAll }),
       h(PatchHealth, { state: s }),
       h(PatchGroupSwitches, { state: s, onSaved: loadAll }),
       h(
