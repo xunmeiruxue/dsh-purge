@@ -489,7 +489,8 @@ export function MasterSwitch({ state, onSaved }) {
       ? h(
           "p",
           {
-            className: "dshpp-sw-note" + (note.kind === "error" ? " is-bad" : ""),
+            className:
+              "dshpp-sw-note" + (note.kind === "error" ? " is-bad" : ""),
             role: "status",
           },
           note.text,
