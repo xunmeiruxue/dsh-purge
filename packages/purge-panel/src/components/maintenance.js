@@ -254,6 +254,62 @@ export function maintenanceNotice(op, result) {
   return result.note || "维护操作已完成";
 }
 
+/**
+ * 上游参考版本：只读提示，不参与安装。
+ * 装的是你自己的 fork，所以"上游有新版"只用来告诉你该不该去同步一次。
+ */
+function UpstreamNotice() {
+  const [info, setInfo] = useState(null);
+  const [busy, setBusy] = useState(false);
+  const load = useCallback((force) => {
+    setBusy(true);
+    apiJson("/dsh-purge/upstream" + (force ? "?force=1" : ""))
+      .then((d) => setInfo(d && d.ok ? d : { error: (d && d.error) || "unknown" }))
+      .catch((e) => setInfo({ error: String((e && e.message) || e) }))
+      .then(() => setBusy(false));
+  }, []);
+  useEffect(() => {
+    load(false);
+  }, [load]);
+  const version = info && info.version;
+  const line = !info
+    ? "上游参考版本：检查中…"
+    : !version
+      ? info.error
+        ? "上游参考版本暂不可查（" + info.error + "）"
+        : "上游参考版本：未检查"
+      : info.behind
+        ? "上游有新版本 v" + version + "，当前 " + info.localVersion + "（只提示，不影响已装版本）"
+        : "上游参考版本 v" + version + "，已同步";
+  return h(
+    "div",
+    { className: "dshpp-row" },
+    h("span", null, line),
+    info && info.url
+      ? h(
+          "a",
+          {
+            href: info.url,
+            target: "_blank",
+            rel: "noreferrer",
+            className: "dshpp-updch-open",
+          },
+          "打开上游",
+        )
+      : null,
+    h(
+      Btn,
+      {
+        tiny: true,
+        disabled: busy,
+        title: "重新检查上游",
+        onClick: () => load(true),
+      },
+      busy ? "检查中…" : "检查",
+    ),
+  );
+}
+
 export function UpdatePreferences({
   value,
   status = {},
@@ -380,6 +436,7 @@ export function UpdatePreferences({
         ].filter(Boolean),
       ),
     ].map((message) => h("p", { key: message, role: "alert" }, message)),
+    h(UpstreamNotice, null),
   );
 }
 

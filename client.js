@@ -13435,6 +13435,44 @@ function maintenanceNotice(op, result) {
   }
   return result.note || "\u7EF4\u62A4\u64CD\u4F5C\u5DF2\u5B8C\u6210";
 }
+function UpstreamNotice() {
+  const [info, setInfo] = useState(null);
+  const [busy, setBusy] = useState(false);
+  const load = useCallback((force) => {
+    setBusy(true);
+    apiJson("/dsh-purge/upstream" + (force ? "?force=1" : "")).then((d) => setInfo(d && d.ok ? d : { error: d && d.error || "unknown" })).catch((e) => setInfo({ error: String(e && e.message || e) })).then(() => setBusy(false));
+  }, []);
+  useEffect(() => {
+    load(false);
+  }, [load]);
+  const version = info && info.version;
+  const line = !info ? "\u4E0A\u6E38\u53C2\u8003\u7248\u672C\uFF1A\u68C0\u67E5\u4E2D\u2026" : !version ? info.error ? "\u4E0A\u6E38\u53C2\u8003\u7248\u672C\u6682\u4E0D\u53EF\u67E5\uFF08" + info.error + "\uFF09" : "\u4E0A\u6E38\u53C2\u8003\u7248\u672C\uFF1A\u672A\u68C0\u67E5" : info.behind ? "\u4E0A\u6E38\u6709\u65B0\u7248\u672C v" + version + "\uFF0C\u5F53\u524D " + info.localVersion + "\uFF08\u53EA\u63D0\u793A\uFF0C\u4E0D\u5F71\u54CD\u5DF2\u88C5\u7248\u672C\uFF09" : "\u4E0A\u6E38\u53C2\u8003\u7248\u672C v" + version + "\uFF0C\u5DF2\u540C\u6B65";
+  return h(
+    "div",
+    { className: "dshpp-row" },
+    h("span", null, line),
+    info && info.url ? h(
+      "a",
+      {
+        href: info.url,
+        target: "_blank",
+        rel: "noreferrer",
+        className: "dshpp-updch-open"
+      },
+      "\u6253\u5F00\u4E0A\u6E38"
+    ) : null,
+    h(
+      Btn,
+      {
+        tiny: true,
+        disabled: busy,
+        title: "\u91CD\u65B0\u68C0\u67E5\u4E0A\u6E38",
+        onClick: () => load(true)
+      },
+      busy ? "\u68C0\u67E5\u4E2D\u2026" : "\u68C0\u67E5"
+    )
+  );
+}
 function UpdatePreferences({
   value,
   status = {},
@@ -13545,7 +13583,8 @@ function UpdatePreferences({
           error
         ].filter(Boolean)
       )
-    ].map((message) => h("p", { key: message, role: "alert" }, message))
+    ].map((message) => h("p", { key: message, role: "alert" }, message)),
+    h(UpstreamNotice, null)
   );
 }
 function UpdateChannelDialog({ value, onClose, onSaved }) {

@@ -1,0 +1,30 @@
+name: sync-upstream
+
+# 每天自动把上游合并进来，重建 client.js 并推送；
+# 源码冲突（不是构建产物）会失败的，这时由人处理，机器人不会替你丢改动。
+on:
+  schedule:
+    - cron: "23 20 * * *"   # 每天 04:23（Asia/Shanghai）
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-upstream
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Merge upstream, rebuild, verify, commit
+        run: node scripts/sync-upstream.mjs
+      - name: Push
+        run: git push origin HEAD:master
