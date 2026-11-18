@@ -28,6 +28,7 @@ import {
   PatchHealth,
   PatchGroupSwitches,
   PatchApplySteps,
+  MasterSwitch,
 } from "./patch-status.js";
 import { noticeNode, Btn } from "./primitives.js";
 import { HooksDenySection } from "./advanced.js";
@@ -870,6 +871,7 @@ export function PurgifySection({ page = "status", onStatus } = {}) {
           )
         : null,
       noticeNode(notice),
+      h(MasterSwitch, { state: s, onSaved: loadAll }),
       h(PatchHealth, { state: s }),
       h(PatchGroupSwitches, { state: s, onSaved: loadAll }),
       h(

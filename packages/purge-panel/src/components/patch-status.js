@@ -417,6 +417,87 @@ export function PatchGroupSwitches({ state, onSaved }) {
   );
 }
 
+/**
+ * 破甲总开关：唯一一个"关掉就是真还原"的开关。
+ * 关 = 回退全部宿主补丁 + 停用注入正文与破甲强化段（请求里不再有破甲内容）；
+ * 开 = 恢复注入，并立刻把补丁写回宿主。两种状态都要完全退出并重开 DSH 才生效。
+ */
+export function MasterSwitch({ state, onSaved }) {
+  const t = useT();
+  const off = !!(state && state.master_off === true);
+  const [busy, setBusy] = useState(false);
+  const [note, setNote] = useState(null);
+  const toggle = () => {
+    if (busy) return;
+    const next = !off;
+    setBusy(true);
+    setNote(null);
+    apiJson("/dsh-purge/master", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ off: next }),
+    })
+      .then(async (d) => {
+        if (!d || !d.ok) throw new Error((d && d.error) || "switch failed");
+        if (next) {
+          setNote({
+            kind: "ok",
+            text: t("master.off.note", { reverted: d.reverted ?? 0 }),
+          });
+        } else {
+          // 只是清掉开关还不够：宿主文件仍是原版，必须把补丁写回去。
+          const a = await apiJson("/dsh-purge/apply", {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify({}),
+          });
+          if (!a || a.ok === false)
+            throw new Error((a && a.error) || t("master.applyFailed"));
+          setNote({
+            kind: "ok",
+            text: t("master.on.note", { applied: a.applied ?? 0 }),
+          });
+        }
+        if (typeof onSaved === "function") onSaved();
+      })
+      .catch((e) =>
+        setNote({
+          kind: "error",
+          text: t("master.fail", { error: String((e && e.message) || e) }),
+        }),
+      )
+      .then(() => setBusy(false));
+  };
+  return h(
+    "div",
+    null,
+    h(
+      "div",
+      { className: "dshpp-switches" },
+      h(Switch, {
+        on: !off,
+        busy,
+        label: t("master.label"),
+        desc: t("master.desc"),
+        hintTitle: t("master.label"),
+        hint: t("master.hint"),
+        chip: off ? t("master.chip.off") : t("master.chip.on"),
+        onToggle: toggle,
+      }),
+    ),
+    note
+      ? h(
+          "p",
+          {
+            className: "dshpp-sw-note" + (note.kind === "error" ? " is-bad" : ""),
+            role: "status",
+          },
+          note.text,
+        )
+      : null,
+  );
+}
+
 const FILTERS = ["all", "pending", "off", "na"];
 
 /** 补丁明细：过滤条 + 分组表。组内保留状态说明文字，便于直接看出"要修什么"。 */

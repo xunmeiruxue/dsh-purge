@@ -146,6 +146,20 @@ export const zh = {
     "关掉重复调用提醒与工具结果修剪。默认关，开了 token 会涨。",
   "sw.context.hint":
     "对应 #18 重复调用提醒、#19 工具结果修剪。关掉后模型不再收到重复调用提醒，长工具输出也不再被裁剪——代价是 token 持续增长，重度会话更容易撞上限。默认关。",
+  "master.label": "破甲总开关",
+  "master.desc":
+    "关掉就是真还原：宿主补丁全部回退，注入正文与破甲强化段一起停用。打开会恢复注入，并把补丁写回宿主。",
+  "master.hint":
+    "关掉后：全部宿主补丁回退成官方原件、prompt-inject.md 不再进入任何请求、破甲强化段同时关闭——请求里不再有破甲内容，长提示词不再稀释模型，按官方提示词判定的公益站也不会撞上破甲。打开后：恢复注入并调用一次「应用」把补丁写回宿主。prompt-inject.md、备份、面板全部保留，随时可以再开。两种状态都要完全退出并重开 DSH 才生效。",
+  "master.chip.on": "破甲已开",
+  "master.chip.off": "已还原为原版",
+  "master.off.note":
+    "已回退 {reverted} 个宿主文件，注入与强化段已停用。完全退出并重开 DSH 后为原版。",
+  "master.on.note":
+    "已恢复注入并写回 {applied} 个补丁。完全退出并重开 DSH 后生效。",
+  "master.applyFailed":
+    "开关已打开，但补丁没写回宿主；请在下面点「应用」重试。",
+  "master.fail": "切换失败：{error}",
   "sw.chip.pending": "{n} 条 · 待写入",
   "sw.chip.on": "{n} 条 · 已写入 {written} · 待写 {pending}",
   "detail.title": "补丁明细",
@@ -646,6 +660,20 @@ export const en = {
     "Turn off the repeat-call reminder and tool-result pruning. Off by default; tokens grow when on.",
   "sw.context.hint":
     "#18 repeat-tool reminder and #19 tool-result pruner. With them off the model no longer gets repeat-call reminders and long tool output is kept in full; the cost is steady token growth. Off by default.",
+  "master.label": "Master switch",
+  "master.desc":
+    "Off is a true restore: every host patch is rolled back and both the injected prompt and the boost block stop being sent. On restores injection and writes the patches back to the host.",
+  "master.hint":
+    "Off: all host patches return to the official bytes, prompt-inject.md never reaches a request, and the boost block is off — so the request carries a stock prompt and the long jailbreak text stops diluting the model. On: injection resumes and Apply writes the patches back. prompt-inject.md, backups and the panel are kept, so you can turn it on again at any time. Either way you must fully quit and reopen DSH.",
+  "master.chip.on": "Purge on",
+  "master.chip.off": "Restored to stock",
+  "master.off.note":
+    "Reverted {reverted} host files; injection and the boost block are off. Fully quit and reopen DSH for the stock prompt.",
+  "master.on.note":
+    "Injection restored and {applied} patches written back. Fully quit and reopen DSH to load them.",
+  "master.applyFailed":
+    "Switch is on but the patches were not written; press Apply below to retry.",
+  "master.fail": "Switch failed: {error}",
   "sw.chip.pending": "{n} patches · to write",
   "sw.chip.on": "{n} patches · {written} written · {pending} to write",
   "detail.title": "Patch detail",
