@@ -1,0 +1,51 @@
+name: build
+
+# 构建成品：仓库里提交的 client.js 必须与源码一致，这里每次都重建并校验；
+# 打 tag 时顺带把可安装的 TGZ 放进 Release，安装端就不用构建。
+on:
+  push:
+    branches: [master]
+    paths:
+      - "lib/**"
+      - "packages/**"
+      - "client.js"
+      - "package.json"
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install build dependency (esbuild only, not committed)
+        run: npm i --no-save --no-audit --no-fund esbuild@0.28.2
+      - name: Rebuild panel bundle
+        run: node packages/purge-panel/scripts/build.mjs --community
+      - name: Verify bundle matches source
+        run: npm run check:client
+      - name: Verify docs stay in sync with version
+        run: npm run check:docs
+      - name: Fork tests
+        run: node --test test/master-switch.test.mjs test/upstream-watch.test.mjs
+      - name: Pack installable tarball
+        run: npm pack --ignore-scripts
+      - name: Checksums
+        run: sha256sum ./*.tgz > SHA256SUMS.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dsh-purge-community-tgz
+          path: |
+            ./*.tgz
+            SHA256SUMS.txt
+      - name: Publish release assets on tag
+        if: startsWith(github.ref, 'refs/tags/v')
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release create "${GITHUB_REF_NAME}" ./*.tgz SHA256SUMS.txt --title "${GITHUB_REF_NAME}" --generate-notes
